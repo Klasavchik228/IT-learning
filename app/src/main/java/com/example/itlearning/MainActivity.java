@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import model.PlayerBackground;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        PlayerBackground.player = MediaPlayer.create(this,R.raw.lofi);
+        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
 
+        if(sharedPreferences.getBoolean("valueSwitch",true)) {
+            PlayerBackground.player.start();
+            PlayerBackground.player.setLooping(true);
+        }
     }
     public void OnClickDictionary(View v){
         Intent intent = new Intent(this,DictionaryActivity.class);

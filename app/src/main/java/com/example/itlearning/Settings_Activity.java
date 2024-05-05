@@ -16,9 +16,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import model.PlayerBackground;
+
 public class Settings_Activity extends AppCompatActivity {
     static SwitchCompat switchMusic;
-    MediaPlayer player;
+    //MediaPlayer player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +31,12 @@ public class Settings_Activity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        player = MediaPlayer.create(this,R.raw.lofi);
         switchMusic = findViewById(R.id.switchMusic);
         SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
         switchMusic.setChecked(sharedPreferences.getBoolean("valueSwitch",true));
         if(switchMusic.isChecked()){
-            player.start();
-            player.setLooping(true);
+            PlayerBackground.player.start();
+            PlayerBackground.player.setLooping(true);
             SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
             editor.putBoolean("valueSwitch",true);
             editor.apply();
@@ -45,16 +46,16 @@ public class Settings_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(switchMusic.isChecked()){
-                    player.start();
-                    player.setLooping(true);
+                    PlayerBackground.player.start();
+                    PlayerBackground.player.setLooping(true);
                     SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
                     editor.putBoolean("valueSwitch",true);
                     editor.apply();
                     switchMusic.setChecked(true);
                 }else {
-                    player.pause();
-                    player.seekTo(0);
-                    player.setLooping(false);
+                    PlayerBackground.player.pause();
+                    PlayerBackground.player.seekTo(0);
+                    PlayerBackground.player.setLooping(false);
 
                     SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
                     editor.putBoolean("valueSwitch",false);
