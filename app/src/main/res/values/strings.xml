@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">IT Learning</string>
+    <string name="add_button_text">добавить</string>
+    <string name="start_button_text">учить</string>
+    <string name="settings">настройки</string>
+    <string name="dictionary">словарь</string>
+    <string name="back">назад</string>
+    <string name="catDescription">милый котик</string>
+    <string name="catToast">мяяяууу</string>
+    <string name="add">добавление</string>
+    <string name="hint_termin">термин или вопрос</string>
+    <string name="hint_answer">описание или ответ</string>
+    <string name="save">сохранить</string>
+    <string name="empty">пустая запись</string>
+    <string name="restart">сбросить данные</string>
+    <string name="delite">удалить</string>
+</resources>
