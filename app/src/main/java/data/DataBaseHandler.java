@@ -76,4 +76,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Util.TABLE_NAME,Util.KEY_ID +"=?",new String[]{String.valueOf(id)});
     }
+
+    public void deleteOllTerm(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<TermData> termDataList = new ArrayList<>();
+        String select = "SELECT "+Util.KEY_ID+", "+Util.TERM_NAME+", "+Util.TERM_DESCRIPTION+" FROM " + Util.TABLE_NAME;
+        Cursor cursor = db.rawQuery(select,null);
+        if(cursor.moveToFirst()){
+            do{
+                TermData termData = new TermData(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+                db.delete(Util.TABLE_NAME,Util.KEY_ID +"=?",new String[]{String.valueOf(termData.getId())});
+            }while (cursor.moveToNext());
+        }
+    }
 }

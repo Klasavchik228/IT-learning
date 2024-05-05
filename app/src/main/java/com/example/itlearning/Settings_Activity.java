@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import data.DataBaseHandler;
 import model.PlayerBackground;
 
 public class Settings_Activity extends AppCompatActivity {
@@ -69,5 +70,10 @@ public class Settings_Activity extends AppCompatActivity {
 
     public void OnClickBack(View v){
         finish();
+    }
+    public void onClickDelete(View v){
+        DataBaseHandler db = new DataBaseHandler(this);
+        db.deleteOllTerm();
+        Toast.makeText(this,"Словарь очищен", Toast.LENGTH_SHORT).show();
     }
 }
