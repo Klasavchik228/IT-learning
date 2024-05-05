@@ -1,5 +1,7 @@
 package com.example.itlearning;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -72,8 +74,25 @@ public class Settings_Activity extends AppCompatActivity {
         finish();
     }
     public void onClickDelete(View v){
-        DataBaseHandler db = new DataBaseHandler(this);
-        db.deleteOllTerm();
-        Toast.makeText(this,"Словарь очищен", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Settings_Activity.this);
+        builder.setTitle("Обнуление словаря")
+                .setMessage("Вы уверены что хотите удалить все записи?:(")
+                .setCancelable(false)
+                .setPositiveButton("да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DataBaseHandler db = new DataBaseHandler(Settings_Activity.this);
+                        db.deleteOllTerm();
+                        Toast.makeText(Settings_Activity.this,"Словарь очищен", Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+
+
+
     }
 }

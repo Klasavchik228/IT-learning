@@ -1,7 +1,7 @@
 package com.example.itlearning;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -60,13 +60,26 @@ public class Term_activity extends AppCompatActivity {
         db.close();
     }
     public void onClickDelete(View v){
-        Bundle arguments = getIntent().getExtras();
-        TextView term;
-        term = findViewById(R.id.termList);
-        DataBaseHandler db = new DataBaseHandler(this);
-        db.deleteTerm(arguments.getInt("id"));
-        db.close();
-        finish();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Term_activity.this);
+        builder.setTitle("Удаление Элемента")
+                .setMessage("Вы уверены что хотите удалить этот термин?")
+                .setCancelable(false)
+                .setPositiveButton("да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Bundle arguments = getIntent().getExtras();
+                        DataBaseHandler db = new DataBaseHandler(Term_activity.this);
+                        db.deleteTerm(arguments.getInt("id"));
+                        db.close();
+                        finish();
+                    }
+                }).setNegativeButton("нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
 
     }
 }
